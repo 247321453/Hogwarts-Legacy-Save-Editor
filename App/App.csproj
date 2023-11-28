@@ -60,6 +60,7 @@
     <Compile Include="Game\CharacterSaveFileData.cs" />
     <Compile Include="Game\CharacterUtil.cs" />
     <Compile Include="Game\GameFunUtil.cs" />
+    <Compile Include="Game\GameItems.cs" />
     <Compile Include="Game\LevelExp.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>

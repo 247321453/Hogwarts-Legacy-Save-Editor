@@ -43,6 +43,12 @@
             this.label6 = new System.Windows.Forms.Label();
             this.tb_first_name = new System.Windows.Forms.TextBox();
             this.tb_last_name = new System.Windows.Forms.TextBox();
+            this.btn_set_name = new System.Windows.Forms.Button();
+            this.label7 = new System.Windows.Forms.Label();
+            this.btn_reset = new System.Windows.Forms.Button();
+            this.btn_set_gold = new System.Windows.Forms.Button();
+            this.tb_gold = new System.Windows.Forms.TextBox();
+            this.label8 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // btn_choose_sav
@@ -60,7 +66,7 @@
             this.tb_save_path.Location = new System.Drawing.Point(77, 6);
             this.tb_save_path.Name = "tb_save_path";
             this.tb_save_path.Size = new System.Drawing.Size(618, 21);
-            this.tb_save_path.TabIndex = 1;
+            this.tb_save_path.TabIndex = 3;
             // 
             // label1
             // 
@@ -75,6 +81,7 @@
             // 
             this.tb_level.Location = new System.Drawing.Point(77, 95);
             this.tb_level.Name = "tb_level";
+            this.tb_level.ReadOnly = true;
             this.tb_level.Size = new System.Drawing.Size(100, 21);
             this.tb_level.TabIndex = 3;
             this.tb_level.Text = "0";
@@ -119,9 +126,9 @@
             // 
             // btn_save_sav
             // 
-            this.btn_save_sav.Location = new System.Drawing.Point(713, 32);
+            this.btn_save_sav.Location = new System.Drawing.Point(713, 399);
             this.btn_save_sav.Name = "btn_save_sav";
-            this.btn_save_sav.Size = new System.Drawing.Size(75, 26);
+            this.btn_save_sav.Size = new System.Drawing.Size(75, 46);
             this.btn_save_sav.TabIndex = 2;
             this.btn_save_sav.Text = "保存文件";
             this.btn_save_sav.UseVisualStyleBackColor = true;
@@ -130,7 +137,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(486, 38);
+            this.label4.Location = new System.Drawing.Point(486, 425);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(209, 12);
             this.label4.TabIndex = 4;
@@ -140,6 +147,7 @@
             // 
             this.tb_exp.Location = new System.Drawing.Point(77, 122);
             this.tb_exp.Name = "tb_exp";
+            this.tb_exp.ReadOnly = true;
             this.tb_exp.Size = new System.Drawing.Size(100, 21);
             this.tb_exp.TabIndex = 3;
             this.tb_exp.Text = "0";
@@ -157,27 +165,84 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(12, 36);
+            this.label6.Location = new System.Drawing.Point(12, 39);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(29, 12);
+            this.label6.Size = new System.Drawing.Size(65, 12);
             this.label6.TabIndex = 4;
-            this.label6.Text = "名字";
+            this.label6.Text = "名字前半部";
             // 
             // tb_first_name
             // 
             this.tb_first_name.Location = new System.Drawing.Point(77, 36);
             this.tb_first_name.Name = "tb_first_name";
-            this.tb_first_name.Size = new System.Drawing.Size(217, 21);
-            this.tb_first_name.TabIndex = 3;
+            this.tb_first_name.Size = new System.Drawing.Size(225, 21);
+            this.tb_first_name.TabIndex = 1;
             this.tb_first_name.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // tb_last_name
             // 
             this.tb_last_name.Location = new System.Drawing.Point(77, 63);
             this.tb_last_name.Name = "tb_last_name";
-            this.tb_last_name.Size = new System.Drawing.Size(217, 21);
-            this.tb_last_name.TabIndex = 3;
+            this.tb_last_name.Size = new System.Drawing.Size(225, 21);
+            this.tb_last_name.TabIndex = 1;
             this.tb_last_name.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // btn_set_name
+            // 
+            this.btn_set_name.Location = new System.Drawing.Point(307, 34);
+            this.btn_set_name.Name = "btn_set_name";
+            this.btn_set_name.Size = new System.Drawing.Size(75, 26);
+            this.btn_set_name.TabIndex = 1;
+            this.btn_set_name.Text = "修改名字";
+            this.btn_set_name.UseVisualStyleBackColor = true;
+            this.btn_set_name.Click += new System.EventHandler(this.btn_set_name_Click);
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(12, 66);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(65, 12);
+            this.label7.TabIndex = 4;
+            this.label7.Text = "名字后半部";
+            // 
+            // btn_reset
+            // 
+            this.btn_reset.Location = new System.Drawing.Point(12, 415);
+            this.btn_reset.Name = "btn_reset";
+            this.btn_reset.Size = new System.Drawing.Size(120, 26);
+            this.btn_reset.TabIndex = 2;
+            this.btn_reset.Text = "放弃全部修改";
+            this.btn_reset.UseVisualStyleBackColor = true;
+            this.btn_reset.Click += new System.EventHandler(this.btn_reset_Click);
+            // 
+            // btn_set_gold
+            // 
+            this.btn_set_gold.Location = new System.Drawing.Point(183, 174);
+            this.btn_set_gold.Name = "btn_set_gold";
+            this.btn_set_gold.Size = new System.Drawing.Size(120, 26);
+            this.btn_set_gold.TabIndex = 2;
+            this.btn_set_gold.Text = "修改金币";
+            this.btn_set_gold.UseVisualStyleBackColor = true;
+            this.btn_set_gold.Click += new System.EventHandler(this.btn_set_gold_Click);
+            // 
+            // tb_gold
+            // 
+            this.tb_gold.Location = new System.Drawing.Point(77, 176);
+            this.tb_gold.Name = "tb_gold";
+            this.tb_gold.Size = new System.Drawing.Size(100, 21);
+            this.tb_gold.TabIndex = 3;
+            this.tb_gold.Text = "0";
+            this.tb_gold.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(12, 181);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(29, 12);
+            this.label8.TabIndex = 4;
+            this.label8.Text = "金币";
             // 
             // MainForm
             // 
@@ -185,10 +250,13 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.label4);
+            this.Controls.Add(this.label8);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label5);
+            this.Controls.Add(this.label7);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label2);
+            this.Controls.Add(this.tb_gold);
             this.Controls.Add(this.tb_talent);
             this.Controls.Add(this.tb_exp);
             this.Controls.Add(this.tb_last_name);
@@ -196,6 +264,9 @@
             this.Controls.Add(this.tb_level);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.tb_save_path);
+            this.Controls.Add(this.btn_reset);
+            this.Controls.Add(this.btn_set_gold);
+            this.Controls.Add(this.btn_set_name);
             this.Controls.Add(this.btn_reset_talent);
             this.Controls.Add(this.btn_save_sav);
             this.Controls.Add(this.btn_choose_sav);
@@ -227,5 +298,11 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.TextBox tb_first_name;
         private System.Windows.Forms.TextBox tb_last_name;
+        private System.Windows.Forms.Button btn_set_name;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Button btn_reset;
+        private System.Windows.Forms.Button btn_set_gold;
+        private System.Windows.Forms.TextBox tb_gold;
+        private System.Windows.Forms.Label label8;
     }
 }

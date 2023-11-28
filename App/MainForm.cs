@@ -2,13 +2,6 @@
 using HLSE.Game;
 using SQLiteCompare.Data;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Security.Cryptography;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -17,7 +10,6 @@ namespace HLSE
     public partial class MainForm : Form
     {
         private CharacterSaveFileData mSaveData;
-        private SQLiteHelper mDB;
         public MainForm()
         {
             UIThread.Init();
@@ -28,13 +20,14 @@ namespace HLSE
 
         private void btn_choose_sav_Click(object sender, EventArgs e)
         {
-            using(var dlg = new OpenFileDialog())
+            using (var dlg = new OpenFileDialog())
             {
 
-                dlg.Title = "Choose Save File";
+                dlg.Title = "请选择一个存档文件";
                 dlg.InitialDirectory = @"C:\Users\" + Environment.UserName + @"\AppData\Local\Hogwarts Legacy\Saved\SaveGames\";
-                dlg.Filter = "Game Save|*.sav|All Files|*.*";
-                if(dlg.ShowDialog() == DialogResult.OK ) {
+                dlg.Filter = "游戏存档文件|*.sav|All Files|*.*";
+                if (dlg.ShowDialog() == DialogResult.OK)
+                {
                     tb_save_path.Text = dlg.FileName;
                     LoadSave(dlg.FileName);
                 }
@@ -45,7 +38,10 @@ namespace HLSE
         {
             btn_choose_sav.Enabled = enable;
             btn_reset_talent.Enabled = enable;
-            btn_save_sav.Enabled = enable;  
+            btn_save_sav.Enabled = enable;
+            btn_reset.Enabled = enable;
+            btn_set_gold.Enabled = enable;
+            btn_set_name.Enabled = enable;
         }
 
         private void LoadSave(string path)
@@ -59,8 +55,9 @@ namespace HLSE
                     SetButtonsEnable(true);
                     if (data == null)
                     {
-                        MessageBox.Show("Load save file failed!");
-                    } else
+                        MessageBox.Show("加载存档出错!");
+                    }
+                    else
                     {
                         OnLoadSave(data);
                     }
@@ -70,57 +67,51 @@ namespace HLSE
 
         private void OnLoadSave(CharacterSaveFileData data)
         {
-         
-            var db = new SQLiteHelper(data.TempSqliteFilePath);
-            if (!db.Open())
+            if (!data.OpenSQLite())
             {
-                MessageBox.Show("Game Data is bad!");
-                db.Close();
+                MessageBox.Show("无法解析存档!");
                 return;
             }
-            if (mDB != null)
-            {
-                mDB.Close();
-            }
-            mDB = db;
             mSaveData = data;
             UpdateDataView();
         }
 
         private void UpdateDataView()
         {
-            if(mDB == null)
+            if (mSaveData == null || !mSaveData.IsOpen())
             {
                 return;
             }
-            int exp = GameFunUtil.GetAllExp(mDB);
+            int exp = GameFunUtil.GetAllExp(mSaveData.DB);
             tb_exp.Text = exp.ToString();
             tb_level.Text = CharacterUtil.GetLevel(exp).ToString();
-            tb_talent.Text = GameFunUtil.GetTalentPoint(mDB).ToString();
-            tb_first_name.Text = GameFunUtil.GetFirstName(mDB);
-            tb_last_name.Text = GameFunUtil.GetLastName(mDB);
+            tb_talent.Text = GameFunUtil.GetTalentPoint(mSaveData.DB).ToString();
+            tb_first_name.Text = GameFunUtil.GetFirstName(mSaveData.DB);
+            tb_last_name.Text = GameFunUtil.GetLastName(mSaveData.DB);
+            tb_gold.Text = GameFunUtil.ReadPackItemCount(mSaveData.DB, GameItems.GOLD, 0).ToString();
         }
 
         private void btn_reset_talent_Click(object sender, EventArgs e)
         {
-            if (mDB == null)
+            if (mSaveData == null || !mSaveData.IsOpen())
             {
                 return;
             }
-            GameFunUtil.ResetTalent(mDB);
+            GameFunUtil.ResetTalent(mSaveData.DB);
             UpdateDataView();
         }
 
         private void btn_save_sav_Click(object sender, EventArgs e)
         {
-            if(mSaveData != null)
+            if (mSaveData != null)
             {
                 if (CharacterSaveFile.Save(mSaveData))
                 {
-                    MessageBox.Show("Save file success!");
-                } else
+                    MessageBox.Show("保存成功!");
+                }
+                else
                 {
-                    MessageBox.Show("Save file failed!");
+                    MessageBox.Show("保存失败!");
                 }
             }
         }
@@ -128,6 +119,47 @@ namespace HLSE
         private void MainForm_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private void btn_set_name_Click(object sender, EventArgs e)
+        {
+            if (mSaveData == null || !mSaveData.IsOpen())
+            {
+                return;
+            }
+            string fname = tb_first_name.Text;
+            string lname = tb_last_name.Text;
+            if (string.IsNullOrEmpty(fname) || string.IsNullOrEmpty(lname))
+            {
+                MessageBox.Show("名字不能为空");
+                return;
+            }
+            GameFunUtil.SetFirstName(mSaveData.DB, fname);
+            GameFunUtil.SetLastName(mSaveData.DB, lname);
+        }
+
+        private void btn_reset_Click(object sender, EventArgs e)
+        {
+            if (mSaveData != null)
+            {
+                if (!mSaveData.ResetSQLite())
+                {
+                    MessageBox.Show("重置数据出错");
+                }
+            }
+        }
+
+        private void btn_set_gold_Click(object sender, EventArgs e)
+        {
+            //TODO
+            int gold;
+            if(int.TryParse(tb_gold.Text, out gold))
+            {
+                GameFunUtil.SetPackItemCount(mSaveData.DB, GameItems.GOLD, gold);
+            } else
+            {
+                MessageBox.Show("修改金币出错");
+            }
         }
     }
 }

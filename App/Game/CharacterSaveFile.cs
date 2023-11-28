@@ -75,7 +75,13 @@ namespace HLSE.Game
                     Directory.CreateDirectory(tempDir);
                 }
                 //dbStartOffset, dbEndOffset
-                File.WriteAllBytes(dbFile, dbBytes);
+                try
+                {
+                    File.WriteAllBytes(dbFile, dbBytes);
+                }
+                catch {
+                    return null;
+                }
                 return new CharacterSaveFileData(saveFile, dbFile, bytes, rawDbImageStartIndex, dbEndOffset);
             }
             return null;

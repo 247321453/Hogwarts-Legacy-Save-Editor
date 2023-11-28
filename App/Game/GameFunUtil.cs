@@ -1,5 +1,6 @@
 ﻿using Common.Data;
 using SQLiteCompare.Data;
+using System.Security.Cryptography;
 
 namespace HLSE.Game
 {
@@ -32,15 +33,44 @@ namespace HLSE.Game
         {
             return GetMiscDataDynamicValue(db, "PlayerLastName");
         }
-
+        public static void SetFirstName(SQLiteHelper db, string value)
+        {
+            SetMiscDataDynamicValue(db, "PlayerFirstName", value);
+        }
         public static void SetLastName(SQLiteHelper db, string value)
         {
             SetMiscDataDynamicValue(db, "PlayerLastName", value);
         }
 
+        public static int ReadPackItemCount(SQLiteHelper db, string item, int def = 0)
+        {
+            //         title = "Galleons",
+            //table = "InventoryDynamic",
+            //identifiers = arrayOf("CharacterID" to "Player0", "ItemID" to "Knuts"),
+            //valueColumn = "Count",
+            //value = value
+            object ret = db.ExcuteScalarSQL(string.Format("SELECT Count FROM InventoryDynamic WHERE CharacterID='Player0'  and ItemID ='{0}';", item));
+            if (ret == null)
+            {
+                return def;
+            }
+            return int.Parse(ret.ToString());
+        }
+
+
+        public static void SetPackItemCount(SQLiteHelper db, string item, int value)
+        {
+            //if(value < 0)
+            // {
+            //     db.ExcuteSQL(string.Format("DELETE FROM InventoryDynamic WHERE CharacterID='Player0' and ItemID = '{1}';", value, item));
+            //     return;
+            //  }
+            db.ExcuteSQL(string.Format("UPDATE InventoryDynamic SET Count = {0} WHERE CharacterID='Player0'  and ItemID = '{1}';", value, item));
+        }
+
         public static string GetMiscDataDynamicValue(SQLiteHelper db, string key, string def = "")
         {
-            object ret = db.ExcuteScalarSQL(string.Format("select DataValue from MiscDataDynamic where DataName = '{0}';", key));
+            object ret = db.ExcuteScalarSQL(string.Format("SELECT DataValue FROM MiscDataDynamic WHERE DataName = '{0}';", key));
             if(ret == null)
             {
                 return def;
@@ -51,7 +81,7 @@ namespace HLSE.Game
         public static void SetMiscDataDynamicValue(SQLiteHelper db, string key, object value)
         {
             string val = value.ToString().Replace("'", "''");
-            db.ExcuteSQL(string.Format("UPDATE MiscDataDynamic SET DataValue = '{0}' where DataName = '{1}';", val, key));
+            db.ExcuteSQL(string.Format("UPDATE MiscDataDynamic SET DataValue = '{0}' WHERE DataName = '{1}';", val, key));
         }
 
         /// <summary>
