@@ -49,6 +49,9 @@
             this.btn_set_gold = new System.Windows.Forms.Button();
             this.tb_gold = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
+            this.btn_set_pack_cap = new System.Windows.Forms.Button();
+            this.tb_pack_cap = new System.Windows.Forms.TextBox();
+            this.label9 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // btn_choose_sav
@@ -98,7 +101,8 @@
             // 
             // tb_talent
             // 
-            this.tb_talent.Location = new System.Drawing.Point(77, 149);
+            this.tb_talent.Location = new System.Drawing.Point(77, 184);
+            this.tb_talent.MaxLength = 2;
             this.tb_talent.Name = "tb_talent";
             this.tb_talent.Size = new System.Drawing.Size(100, 21);
             this.tb_talent.TabIndex = 3;
@@ -108,7 +112,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(12, 154);
+            this.label3.Location = new System.Drawing.Point(12, 189);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(65, 12);
             this.label3.TabIndex = 4;
@@ -116,7 +120,7 @@
             // 
             // btn_reset_talent
             // 
-            this.btn_reset_talent.Location = new System.Drawing.Point(183, 147);
+            this.btn_reset_talent.Location = new System.Drawing.Point(183, 182);
             this.btn_reset_talent.Name = "btn_reset_talent";
             this.btn_reset_talent.Size = new System.Drawing.Size(120, 26);
             this.btn_reset_talent.TabIndex = 2;
@@ -218,7 +222,7 @@
             // 
             // btn_set_gold
             // 
-            this.btn_set_gold.Location = new System.Drawing.Point(183, 174);
+            this.btn_set_gold.Location = new System.Drawing.Point(183, 211);
             this.btn_set_gold.Name = "btn_set_gold";
             this.btn_set_gold.Size = new System.Drawing.Size(120, 26);
             this.btn_set_gold.TabIndex = 2;
@@ -228,7 +232,7 @@
             // 
             // tb_gold
             // 
-            this.tb_gold.Location = new System.Drawing.Point(77, 176);
+            this.tb_gold.Location = new System.Drawing.Point(77, 213);
             this.tb_gold.Name = "tb_gold";
             this.tb_gold.Size = new System.Drawing.Size(100, 21);
             this.tb_gold.TabIndex = 3;
@@ -238,11 +242,40 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(12, 181);
+            this.label8.Location = new System.Drawing.Point(12, 218);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(29, 12);
             this.label8.TabIndex = 4;
             this.label8.Text = "金币";
+            // 
+            // btn_set_pack_cap
+            // 
+            this.btn_set_pack_cap.Location = new System.Drawing.Point(183, 152);
+            this.btn_set_pack_cap.Name = "btn_set_pack_cap";
+            this.btn_set_pack_cap.Size = new System.Drawing.Size(120, 26);
+            this.btn_set_pack_cap.TabIndex = 2;
+            this.btn_set_pack_cap.Text = "修改背包容量";
+            this.btn_set_pack_cap.UseVisualStyleBackColor = true;
+            this.btn_set_pack_cap.Click += new System.EventHandler(this.btn_set_pack_cap_Click);
+            // 
+            // tb_pack_cap
+            // 
+            this.tb_pack_cap.Location = new System.Drawing.Point(77, 154);
+            this.tb_pack_cap.MaxLength = 3;
+            this.tb_pack_cap.Name = "tb_pack_cap";
+            this.tb_pack_cap.Size = new System.Drawing.Size(100, 21);
+            this.tb_pack_cap.TabIndex = 3;
+            this.tb_pack_cap.Text = "0";
+            this.tb_pack_cap.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(12, 159);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(53, 12);
+            this.label9.TabIndex = 4;
+            this.label9.Text = "背包容量";
             // 
             // MainForm
             // 
@@ -251,12 +284,14 @@
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label8);
+            this.Controls.Add(this.label9);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.tb_gold);
+            this.Controls.Add(this.tb_pack_cap);
             this.Controls.Add(this.tb_talent);
             this.Controls.Add(this.tb_exp);
             this.Controls.Add(this.tb_last_name);
@@ -267,6 +302,7 @@
             this.Controls.Add(this.btn_reset);
             this.Controls.Add(this.btn_set_gold);
             this.Controls.Add(this.btn_set_name);
+            this.Controls.Add(this.btn_set_pack_cap);
             this.Controls.Add(this.btn_reset_talent);
             this.Controls.Add(this.btn_save_sav);
             this.Controls.Add(this.btn_choose_sav);
@@ -304,5 +340,8 @@
         private System.Windows.Forms.Button btn_set_gold;
         private System.Windows.Forms.TextBox tb_gold;
         private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Button btn_set_pack_cap;
+        private System.Windows.Forms.TextBox tb_pack_cap;
+        private System.Windows.Forms.Label label9;
     }
 }

@@ -84,6 +84,14 @@ namespace HLSE.Game
             db.ExcuteSQL(string.Format("UPDATE MiscDataDynamic SET DataValue = '{0}' WHERE DataName = '{1}';", val, key));
         }
 
+        public static int GetBaseInventoryCapacity(SQLiteHelper db)
+        {
+            return int.Parse(GetMiscDataDynamicValue(db, "BaseInventoryCapacity", "0"));
+        }
+        public static void SetBaseInventoryCapacity(SQLiteHelper db, int value)
+        {
+            SetMiscDataDynamicValue(db, "BaseInventoryCapacity", value);
+        }
         /// <summary>
         /// 获取剩余天赋点
         /// </summary>

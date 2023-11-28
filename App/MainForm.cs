@@ -42,6 +42,7 @@ namespace HLSE
             btn_reset.Enabled = enable;
             btn_set_gold.Enabled = enable;
             btn_set_name.Enabled = enable;
+            btn_set_pack_cap.Enabled = enable;
         }
 
         private void LoadSave(string path)
@@ -89,6 +90,7 @@ namespace HLSE
             tb_first_name.Text = GameFunUtil.GetFirstName(mSaveData.DB);
             tb_last_name.Text = GameFunUtil.GetLastName(mSaveData.DB);
             tb_gold.Text = GameFunUtil.ReadPackItemCount(mSaveData.DB, GameItems.GOLD, 0).ToString();
+            tb_pack_cap.Text = GameFunUtil.GetBaseInventoryCapacity(mSaveData.DB).ToString();
         }
 
         private void btn_reset_talent_Click(object sender, EventArgs e)
@@ -159,6 +161,20 @@ namespace HLSE
             } else
             {
                 MessageBox.Show("修改金币出错");
+            }
+        }
+
+        private void btn_set_pack_cap_Click(object sender, EventArgs e)
+        {
+            int val;
+            if (int.TryParse(tb_pack_cap.Text, out val))
+            {
+                val = Math.Max(20, val);
+                GameFunUtil.SetBaseInventoryCapacity(mSaveData.DB, val);
+            }
+            else
+            {
+                MessageBox.Show("修改背包容量出错");
             }
         }
     }
