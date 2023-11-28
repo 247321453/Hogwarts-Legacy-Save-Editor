@@ -94,8 +94,11 @@ namespace HLSE
                 return;
             }
             int exp = GameFunUtil.GetAllExp(mDB);
+            tb_exp.Text = exp.ToString();
             tb_level.Text = CharacterUtil.GetLevel(exp).ToString();
             tb_talent.Text = GameFunUtil.GetTalentPoint(mDB).ToString();
+            tb_first_name.Text = GameFunUtil.GetFirstName(mDB);
+            tb_last_name.Text = GameFunUtil.GetLastName(mDB);
         }
 
         private void btn_reset_talent_Click(object sender, EventArgs e)
@@ -120,6 +123,11 @@ namespace HLSE
                     MessageBox.Show("Save file failed!");
                 }
             }
+        }
+
+        private void MainForm_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

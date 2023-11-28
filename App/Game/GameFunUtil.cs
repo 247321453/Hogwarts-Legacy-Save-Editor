@@ -13,7 +13,7 @@ namespace HLSE.Game
         /// <returns></returns>
         public static int GetAllExp(SQLiteHelper db)
         {
-            return int.Parse(db.ExcuteScalarSQL("select DataValue from MiscDataDynamic where DataName = 'ExperiencePoints';").ToString());
+            return int.Parse(GetMiscDataDynamicValue(db, "ExperiencePoints", "0"));
         }
 
         /// <summary>
@@ -21,7 +21,37 @@ namespace HLSE.Game
         /// </summary>
         public static int GetTalentPoint(SQLiteHelper db)
         {
-            return int.Parse(db.ExcuteScalarSQL("select DataValue from MiscDataDynamic where DataName = 'PerkPoints';").ToString());
+            return int.Parse(GetMiscDataDynamicValue(db, "PerkPoints", "0"));
+        }
+
+        public static string GetFirstName(SQLiteHelper db)
+        {
+            return GetMiscDataDynamicValue(db, "PlayerFirstName");
+        }
+        public static string GetLastName(SQLiteHelper db)
+        {
+            return GetMiscDataDynamicValue(db, "PlayerLastName");
+        }
+
+        public static void SetLastName(SQLiteHelper db, string value)
+        {
+            SetMiscDataDynamicValue(db, "PlayerLastName", value);
+        }
+
+        public static string GetMiscDataDynamicValue(SQLiteHelper db, string key, string def = "")
+        {
+            object ret = db.ExcuteScalarSQL(string.Format("select DataValue from MiscDataDynamic where DataName = '{0}';", key));
+            if(ret == null)
+            {
+                return def;
+            }
+            return ret.ToString();
+        }
+
+        public static void SetMiscDataDynamicValue(SQLiteHelper db, string key, object value)
+        {
+            string val = value.ToString().Replace("'", "''");
+            db.ExcuteSQL(string.Format("UPDATE MiscDataDynamic SET DataValue = '{0}' where DataName = '{1}';", val, key));
         }
 
         /// <summary>
@@ -38,7 +68,7 @@ namespace HLSE.Game
             {
                 point = max;
             }
-            db.ExcuteSQL(string.Format("UPDATE MiscDataDynamic SET DataValue = {0} where DataName = 'PerkPoints';", point));
+            SetMiscDataDynamicValue(db, "PerkPoints", point);
         }
 
         /// <summary>
