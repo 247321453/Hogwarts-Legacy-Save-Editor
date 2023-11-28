@@ -48,6 +48,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\App\Common\DbExtensions.cs">
+      <Link>DbExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\App\Common\DbHelper.cs">
+      <Link>DbHelper.cs</Link>
+    </Compile>
+    <Compile Include="..\App\Common\SQLiteHelper.cs">
+      <Link>SQLiteHelper.cs</Link>
+    </Compile>
     <Compile Include="..\App\Game\CharacterSaveFile.cs">
       <Link>CharacterSaveFile.cs</Link>
     </Compile>
